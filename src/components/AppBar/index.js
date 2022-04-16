@@ -31,7 +31,7 @@ const AppBar = () => {
         </Text>
         :
         <>
-          <Button title="Register" onPress={handleToggleModal} />
+          <Button title="Register" color="orange" onPress={handleToggleModal} />
           <LoginModal
             visible={isModalOpen}
             toggle={handleToggleModal}

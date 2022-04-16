@@ -83,15 +83,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     elevation: 2
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
   close: {
     backgroundColor: "#ff0000",
   },
   submit: {
     marginLeft: 10,
-    backgroundColor: "#2196F3",
+    backgroundColor: "#6200EE",
   },
   textStyle: {
     color: "white",

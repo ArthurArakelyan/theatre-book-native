@@ -12,7 +12,7 @@ const Theatre = ({theatre}) => {
         {theatre.name}
       </Text>
       <Image style={styles.theatre_image} source={{uri: theatre.image}} />
-      <Button onPress={handleBook} color="orange" title="Book" />
+      <Button onPress={handleBook} color="#6200EE" title="Book" />
     </View>
   );
 }

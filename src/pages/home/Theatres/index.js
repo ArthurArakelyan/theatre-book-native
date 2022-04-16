@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {ScrollView, StyleSheet, Text} from "react-native";
+import {ScrollView, StyleSheet, Text, View} from "react-native";
+import {ActivityIndicator} from "react-native";
 
 import Theatre from "../Theatre";
 
@@ -16,11 +17,19 @@ const Theatres = () => {
   }, []);
 
   if (loading) {
-    return <Text style={styles.message}>loading...</Text>;
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size={80} color="#6200EE" animating />
+      </View>
+    );
   }
 
   if (error) {
-    return <Text style={styles.message}>Error</Text>;
+    return (
+      <View style={styles.center}>
+        <Text style={styles.message}>Error</Text>
+      </View>
+    );
   }
 
   return (
@@ -43,8 +52,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
   },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: '60%',
+  },
   message: {
     fontSize: 32,
+    color: '#000000',
   },
 });
 
