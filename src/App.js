@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 
 import AppBar from "./components/AppBar";
 import Home from "./pages/home";
+import FloatingActionButton from "./components/FloatingActionButton";
 
 import store from "./store/configureStore";
 
@@ -15,6 +16,7 @@ const App = () => {
       <SafeAreaView>
         <AppBar />
         <Home />
+        <FloatingActionButton />
       </SafeAreaView>
     </Provider>
   );
