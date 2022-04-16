@@ -20,7 +20,7 @@ class TheatresService {
       const data = {
         name,
         image,
-        date: Date.now(),
+        date: new Date('2022-12-12T12:12').toISOString(),
       };
 
       const response = await request('POST', 'theatres/create', data);

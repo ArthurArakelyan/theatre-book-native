@@ -19,7 +19,7 @@ const Theatres = () => {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size={80} color="#6200EE" animating />
+        <ActivityIndicator size={80} color="#6200EE" />
       </View>
     );
   }

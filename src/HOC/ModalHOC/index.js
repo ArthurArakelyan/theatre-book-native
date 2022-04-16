@@ -1,45 +1,38 @@
 import React, {Component} from "react";
-import {Modal, StyleSheet, View} from "react-native";
+import {StyleSheet, View} from "react-native";
+import {Modal, Portal} from "react-native-paper";
 
 const ModalHOC = (Content: Component, contentStyles) => ({visible, toggle}) => {
   return (
-    <Modal
-      animationType="slide"
-      transparent
-      visible={visible}
-      onRequestClose={toggle}
-    >
-      <View style={styles.centeredView}>
-        <View style={contentStyles ? {...styles.modalView, ...contentStyles} : styles.modalView}>
-          <Content toggle={toggle} />
+    <Portal>
+      <Modal
+        visible={visible}
+        onDismiss={toggle}
+        dismissable
+      >
+        <View style={styles.centeredView}>
+          <View style={contentStyles ? {...styles.modalView, ...contentStyles} : styles.modalView}>
+            <Content toggle={toggle} />
+          </View>
         </View>
-      </View>
-    </Modal>
+      </Modal>
+    </Portal>
   );
 };
 
 const styles = StyleSheet.create({
   centeredView: {
-    flex: 1,
+    width: '100%',
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   modalView: {
     width: '70%',
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
+    marginVertical: 20,
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    padding: 20,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
   },
 });
 

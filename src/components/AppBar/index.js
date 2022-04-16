@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {Button, StyleSheet, Text} from "react-native";
-import {Appbar} from "react-native-paper";
+import {Appbar, Portal} from "react-native-paper";
 
 import LoginModal from "./LoginModal";
+
+import storage from "../../utils/storage";
 
 import {login, logout} from "../../store/user/actions";
 
@@ -18,6 +20,11 @@ const AppBar = () => {
     setIsModalOpen((value) => !value);
   };
 
+  const handleLogout = () => {
+    storage.remove('user')
+      .then(() => dispatch(logout()));
+  };
+
   useEffect(() => {
     dispatch(login());
   }, []);
@@ -26,7 +33,7 @@ const AppBar = () => {
     <Appbar.Header style={styles.header}>
       <Appbar.Content title="Theatre API" />
       {user ?
-        <Text onLongPress={() => dispatch(logout())} style={styles.user}>
+        <Text onLongPress={handleLogout} style={styles.user}>
           {user.name}
         </Text>
         :

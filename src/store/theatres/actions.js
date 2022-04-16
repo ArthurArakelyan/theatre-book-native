@@ -2,38 +2,11 @@ import {ADD_THEATRE, GET_THEATRES} from "./actionTypes";
 
 import theatresService from "../../services/theatresService";
 
+import createAsyncActionHelpers from "../../utils/createAsyncActionHelpers";
+
 // get
 
-const startGetTheatres = () => {
-  return {
-    type: GET_THEATRES,
-    payload: {
-      loading: true,
-      error: false,
-    }
-  };
-};
-
-const getTheatresSuccess = (theatres) => {
-  return {
-    type: GET_THEATRES,
-    payload: {
-      theatres,
-      loading: false,
-      error: false,
-    }
-  };
-};
-
-const getTheatresError = () => {
-  return {
-    type: GET_THEATRES,
-    payload: {
-      loading: false,
-      error: true,
-    }
-  };
-};
+const [startGetTheatres, getTheatresSuccess, getTheatresError] = createAsyncActionHelpers(GET_THEATRES);
 
 export const getTheatres = () => async (dispatch) => {
   try {
@@ -41,7 +14,7 @@ export const getTheatres = () => async (dispatch) => {
 
     const theatres = await theatresService.getTheatres();
 
-    dispatch(getTheatresSuccess(theatres));
+    dispatch(getTheatresSuccess('theatres', theatres));
     return theatres;
   } catch(e) {
     dispatch(getTheatresError());
@@ -61,7 +34,6 @@ const addTheatreAction = (theatre) => {
 export const addTheatre = (name: string, image: string) => async (dispatch) => {
   try {
     const theatre = await theatresService.addTheatre(name, image);
-    console.log(theatre);
     dispatch(addTheatreAction(theatre));
     return theatre;
   } catch (e) {

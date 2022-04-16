@@ -24,6 +24,7 @@ const LoginModal = ({toggle}) => {
       name,
     }).then(() => {
       dispatch(login());
+      setName('');
       toggle();
     });
   };
