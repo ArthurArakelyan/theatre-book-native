@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   fab: {
     backgroundColor: 'orange',
     position: 'absolute',
-    right: 15,
+    right: 10,
     bottom: 70,
   },
 });

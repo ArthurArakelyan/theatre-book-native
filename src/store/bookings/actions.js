@@ -13,7 +13,6 @@ export const getBookings = () => async (dispatch) => {
 
   } catch (e) {
     dispatch(getBookingsError());
-    console.error(e);
   }
 };
 

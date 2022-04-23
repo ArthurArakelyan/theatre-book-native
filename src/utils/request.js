@@ -1,6 +1,6 @@
 import axios, {Method} from "axios";
 
-import {API_URL} from "../App";
+import {API_URL} from "../config";
 
 import storage from "./storage";
 

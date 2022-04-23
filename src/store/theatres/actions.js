@@ -18,7 +18,6 @@ export const getTheatres = () => async (dispatch) => {
     return theatres;
   } catch(e) {
     dispatch(getTheatresError());
-    console.error(e);
   }
 };
 

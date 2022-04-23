@@ -27,14 +27,17 @@ const Theatres = () => {
   if (error) {
     return (
       <View style={styles.center}>
-        <Text style={styles.message}>Error</Text>
+        <Text style={styles.error_message}>Error</Text>
+        <Text style={styles.error_message_button} onPress={() => dispatch(getTheatres())}>
+          Try again
+        </Text>
       </View>
     );
   }
 
   return (
     <ScrollView contentContainerStyle={styles.theatres}>
-      {theatres.map((theatre) => {
+      {theatres?.map((theatre) => {
         return (
           <Theatre key={theatre._id} theatre={theatre} />
         )
@@ -45,7 +48,7 @@ const Theatres = () => {
 
 const styles = StyleSheet.create({
   theatres: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     width: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -57,9 +60,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: '60%',
   },
-  message: {
+  error_message: {
     fontSize: 32,
-    color: '#000000',
+    color: '#ff0000',
+  },
+  error_message_button: {
+    marginTop: 10,
+    fontSize: 26,
+    backgroundColor: '#6200EE',
+    color: '#ffffff',
+    padding: 10,
+    borderRadius: 3,
   },
 });
 

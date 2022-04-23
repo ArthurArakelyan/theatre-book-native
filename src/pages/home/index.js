@@ -13,6 +13,7 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   home: {
+    height: '100%',
     paddingTop: 10,
     paddingBottom: 130,
   },

@@ -1,17 +1,15 @@
+import Service from "./Service";
+
 import request from "../utils/request";
 
-class TheatresService {
+class TheatresService extends Service {
   async getTheatres() {
     try {
       const response = await request('GET', 'theatres/get');
-
-      if (!response?.data?.success) {
-        throw new Error(response?.data?.message || 'Something went wrong.');
-      }
-
+      super.checkIsSuccess(response);
       return response?.data?.data?.theatres;
     } catch (e) {
-      console.log(e);
+      super.catchError(e);
     }
   }
 
@@ -24,14 +22,10 @@ class TheatresService {
       };
 
       const response = await request('POST', 'theatres/create', data);
-
-      if (!response?.data?.success) {
-        throw new Error(response?.data?.message || 'Something went wrong.');
-      }
-
+      super.checkIsSuccess(response);
       return response?.data?.data?.theatre;
     } catch (e) {
-      console.error(e);
+      super.catchError(e);
     }
   }
 }

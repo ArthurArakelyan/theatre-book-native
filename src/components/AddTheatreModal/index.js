@@ -1,43 +1,100 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {Text, StyleSheet, View, TextInput, Pressable, ActivityIndicator} from "react-native";
+import DatePicker from 'react-native-date-picker';
 
 import ModalHOC from "../../HOC/ModalHOC";
 
 import {addTheatre} from "../../store/theatres/actions";
 
+import checkImageURL from "../../utils/checkImageURL";
+
+const initialData = {
+  name: '',
+  image: '',
+  date: null,
+};
+
 const AddTheatreModal = ({toggle}) => {
   const dispatch = useDispatch();
 
-  const [name, setName] = useState('');
+  const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(false);
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
-  const handleSubmit = () => {
+  const handleTogglePicker = () => {
+    setIsDatePickerOpen((prevState) => !prevState);
+  }
+
+  const handleSubmit = async () => {
     if (loading) {
       return;
     }
 
-    if (!name.trim()) {
+    if (!data.name.trim() || !data.image.trim()) {
       return;
     }
 
     setLoading(true);
 
-    dispatch(addTheatre(name, 'https://px-to-vw.vercel.app/favicon.ico')).then(() => {
-      setName('');
+    const isValidUrl = await checkImageURL(data.image);
+
+    if (!isValidUrl) {
       setLoading(false);
-      toggle();
+      return;
+    }
+
+    await dispatch(addTheatre(data.name, data.image));
+
+    setData({
+      name: '',
+      image: '',
     });
+    setLoading(false);
+    toggle();
   };
+
+  const handleChange = (name: string, value: string) => {
+    setData((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  }
 
   return (
     <>
       <TextInput
         style={styles.input}
-        value={name}
-        onChangeText={(value) => setName(value)}
+        placeholderTextColor="#b0afaf"
+        value={data.name}
+        onChangeText={(value) => handleChange('name', value)}
         placeholder="Theatre name..."
         autoFocus
+      />
+      <TextInput
+        style={styles.input}
+        placeholderTextColor="#b0afaf"
+        value={data.image}
+        onChangeText={(value) => handleChange('image', value)}
+        placeholder="Image URL..."
+      />
+      <Text onPress={handleTogglePicker} style={styles.date}>
+        {data.date ?
+          new Date(data.date).toLocaleString()
+          :
+          'Date...'
+        }
+      </Text>
+      {/* todo: style date picker button */}
+      <DatePicker
+        open={isDatePickerOpen}
+        modal
+        date={data.date || new Date()}
+        onCancel={handleTogglePicker}
+        onConfirm={(date) => {
+          handleChange('date', date);
+          handleTogglePicker();
+        }}
       />
       <View style={styles.actions}>
         <Pressable style={[styles.action, styles.action_close]} onPress={toggle}>
@@ -62,10 +119,15 @@ const AddTheatreModal = ({toggle}) => {
 const styles = StyleSheet.create({
   input: {
     width: '100%',
+    height: 50,
     fontSize: 18,
     color: '#000000',
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
+    marginBottom: 10,
+  },
+  date: {
+    fontSize: 18,
   },
   actions: {
     width: '100%',

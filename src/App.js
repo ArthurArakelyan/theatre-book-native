@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {Provider} from "react-redux";
-import {Provider as PaperProvider, DefaultTheme, Portal} from "react-native-paper";
+import {Provider as PaperProvider, DefaultTheme} from "react-native-paper";
 
 import AppBar from "./components/AppBar";
 import Home from "./pages/home";
@@ -9,8 +9,6 @@ import FloatingActionButton from "./components/FloatingActionButton";
 import AddTheatreModal from "./components/AddTheatreModal";
 
 import store from "./store/configureStore";
-
-export const API_URL = process.env.API_URL;
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +20,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <PaperProvider theme={DefaultTheme}>
-        <SafeAreaView>
+        <SafeAreaView style={styles.app}>
           <AppBar />
           <Home />
           <FloatingActionButton handleClick={handleToggleModal} />
@@ -35,5 +33,11 @@ const App = () => {
     </Provider>
   );
 };
+
+const styles = StyleSheet.create({
+  app: {
+    minHeight: '100%',
+  },
+});
 
 export default App;
