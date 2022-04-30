@@ -1,13 +1,23 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {Text, StyleSheet, View, TextInput, Pressable, ActivityIndicator} from "react-native";
+import {
+  Text,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import DatePicker from 'react-native-date-picker';
+import Icon from "react-native-vector-icons/AntDesign";
+import {TouchableRipple} from "react-native-paper";
+
+import ModalFooter from "../ModalFooter";
 
 import ModalHOC from "../../HOC/ModalHOC";
 
 import {addTheatre} from "../../store/theatres/actions";
 
 import checkImageURL from "../../utils/checkImageURL";
+
+import global from "../../assets/global";
 
 const initialData = {
   name: '',
@@ -35,6 +45,10 @@ const AddTheatreModal = ({toggle}) => {
       return;
     }
 
+    if (!data.date) {
+      return;
+    }
+
     setLoading(true);
 
     const isValidUrl = await checkImageURL(data.image);
@@ -44,12 +58,11 @@ const AddTheatreModal = ({toggle}) => {
       return;
     }
 
-    await dispatch(addTheatre(data.name, data.image));
+    const date = new Date(data.date).toISOString();
 
-    setData({
-      name: '',
-      image: '',
-    });
+    await dispatch(addTheatre(data.name, data.image, date));
+
+    setData(initialData);
     setLoading(false);
     toggle();
   };
@@ -64,7 +77,7 @@ const AddTheatreModal = ({toggle}) => {
   return (
     <>
       <TextInput
-        style={styles.input}
+        style={[global.input, styles.input]}
         placeholderTextColor="#b0afaf"
         value={data.name}
         onChangeText={(value) => handleChange('name', value)}
@@ -72,20 +85,22 @@ const AddTheatreModal = ({toggle}) => {
         autoFocus
       />
       <TextInput
-        style={styles.input}
+        style={[global.input, styles.input]}
         placeholderTextColor="#b0afaf"
         value={data.image}
         onChangeText={(value) => handleChange('image', value)}
         placeholder="Image URL..."
       />
-      <Text onPress={handleTogglePicker} style={styles.date}>
-        {data.date ?
-          new Date(data.date).toLocaleString()
-          :
-          'Date...'
-        }
-      </Text>
-      {/* todo: style date picker button */}
+      <TouchableRipple onPress={handleTogglePicker} style={styles.date}>
+        <>
+          <Icon name="calendar" size={28} style={styles.date_icon} />
+          {data.date &&
+            <Text style={styles.date_text}>
+              {new Date(data.date).toLocaleString()}
+            </Text>
+          }
+        </>
+      </TouchableRipple>
       <DatePicker
         open={isDatePickerOpen}
         modal
@@ -96,64 +111,37 @@ const AddTheatreModal = ({toggle}) => {
           handleTogglePicker();
         }}
       />
-      <View style={styles.actions}>
-        <Pressable style={[styles.action, styles.action_close]} onPress={toggle}>
-          <Text style={styles.action_text}>Close</Text>
-        </Pressable>
-        <Pressable
-          disabled={loading}
-          style={[styles.action, styles.action_submit, loading && styles.action_loading]}
-          onPress={handleSubmit}
-        >
-          {loading ?
-            <ActivityIndicator color="#ffffff" size="small" />
-            :
-            <Text style={styles.action_text}>Add</Text>
-          }
-        </Pressable>
-      </View>
+      <ModalFooter
+        onCancel={toggle}
+        onSubmit={handleSubmit}
+        loading={loading}
+        submitText="Add"
+      />
     </>
   );
 };
 
 const styles = StyleSheet.create({
   input: {
-    width: '100%',
-    height: 50,
-    fontSize: 18,
-    color: '#000000',
-    borderBottomWidth: 1,
-    borderBottomColor: '#000000',
     marginBottom: 10,
   },
   date: {
-    fontSize: 18,
-  },
-  actions: {
     width: '100%',
+    backgroundColor: '#9308e7',
+    marginTop: 10,
+    borderRadius: 4,
+    padding: 10,
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     flexDirection: 'row',
-    marginTop: 20,
   },
-  action: {
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+  date_icon: {
+    color: '#fff',
   },
-  action_loading: {
-    opacity: 0.8,
-  },
-  action_text: {
-    color: '#ffffff',
+  date_text: {
     fontSize: 16,
-  },
-  action_close: {
-    backgroundColor: '#ff0000',
-    marginRight: 10,
-  },
-  action_submit: {
-    backgroundColor: '#6200EE',
+    color: '#fff',
+    marginLeft: 5,
   },
 });
 

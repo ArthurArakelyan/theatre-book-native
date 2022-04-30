@@ -30,6 +30,7 @@
 		671F26632C6E4BD584CD4202 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8148C1A5C18049E0993BFC3B /* Octicons.ttf */; };
 		879AAA6DD584492CA89A392E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1AB56F328008498CA0269BB4 /* SimpleLineIcons.ttf */; };
 		240FA838CE144870980ADDC5 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 526FA2C30775473081B6232A /* Zocial.ttf */; };
+		4FFF01562EFC4B6AAE02B0DC /* njnaruto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 483EF71F79DA402BABBF4C1F /* njnaruto.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		8148C1A5C18049E0993BFC3B /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		1AB56F328008498CA0269BB4 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		526FA2C30775473081B6232A /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		483EF71F79DA402BABBF4C1F /* njnaruto.ttf */ = {isa = PBXFileReference; name = "njnaruto.ttf"; path = "../assets/fonts/njnaruto.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 				8148C1A5C18049E0993BFC3B /* Octicons.ttf */,
 				1AB56F328008498CA0269BB4 /* SimpleLineIcons.ttf */,
 				526FA2C30775473081B6232A /* Zocial.ttf */,
+				483EF71F79DA402BABBF4C1F /* njnaruto.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				671F26632C6E4BD584CD4202 /* Octicons.ttf in Resources */,
 				879AAA6DD584492CA89A392E /* SimpleLineIcons.ttf in Resources */,
 				240FA838CE144870980ADDC5 /* Zocial.ttf in Resources */,
+				4FFF01562EFC4B6AAE02B0DC /* njnaruto.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

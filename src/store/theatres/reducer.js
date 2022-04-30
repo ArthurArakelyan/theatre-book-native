@@ -1,4 +1,4 @@
-import {GET_THEATRES, ADD_THEATRE} from "./actionTypes";
+import {GET_THEATRES, ADD_THEATRE, DELETE_THEATRE} from "./actionTypes";
 
 const initialState = {
   theatres: [],
@@ -17,8 +17,14 @@ const theatresReducer = (state = initialState, action = {}) => {
     case ADD_THEATRE: {
       return {
         ...state,
-        theatres: [...state.theatres, action.payload],
-      }
+        theatres: [action.payload, ...state.theatres],
+      };
+    }
+    case DELETE_THEATRE: {
+      return {
+        ...state,
+        theatres: state.theatres.filter((theatre) => theatre._id !== action.payload),
+      };
     }
     default: {
       return state;

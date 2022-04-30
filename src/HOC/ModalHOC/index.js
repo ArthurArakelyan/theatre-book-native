@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {StyleSheet, View} from "react-native";
 import {Modal, Portal} from "react-native-paper";
 
-const ModalHOC = (Content: Component, contentStyles) => ({visible, toggle}) => {
+const ModalHOC = (Content: Component, contentStyles) => ({visible, toggle, ...props}) => {
   return (
     <Portal>
       <Modal
@@ -11,8 +11,8 @@ const ModalHOC = (Content: Component, contentStyles) => ({visible, toggle}) => {
         dismissable
       >
         <View style={styles.centeredView}>
-          <View style={contentStyles ? {...styles.modalView, ...contentStyles} : styles.modalView}>
-            <Content toggle={toggle} />
+          <View style={[styles.modalView, contentStyles && contentStyles]}>
+            <Content toggle={toggle} {...props} />
           </View>
         </View>
       </Modal>

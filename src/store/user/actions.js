@@ -19,8 +19,18 @@ export const login = () => async (dispatch) => {
   }
 };
 
-export const logout = () => {
+const logoutAction = () => {
   return {
     type: LOGOUT,
   };
+};
+
+export const logout = () => async (dispatch) => {
+  try {
+    await storage.remove('user');
+    dispatch(logoutAction());
+    return true;
+  } catch (e) {
+    console.error(e);
+  }
 };

@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
-import {Pressable, StyleSheet, Text, TextInput, View} from "react-native";
+import {StyleSheet, Text, TextInput} from "react-native";
+
+import ModalFooter from "../../ModalFooter";
 
 import ModalHOC from "../../../HOC/ModalHOC";
 
@@ -8,6 +10,8 @@ import storage from "../../../utils/storage";
 import generateId from "../../../utils/generateId";
 
 import {login} from "../../../store/user/actions";
+
+import global from "../../../assets/global";
 
 const LoginModal = ({toggle}) => {
   const dispatch = useDispatch();
@@ -33,27 +37,17 @@ const LoginModal = ({toggle}) => {
     <>
       <Text style={styles.title}>Register</Text>
       <TextInput
-        style={styles.input}
+        style={global.input}
         value={name}
         onChangeText={(value) => setName(value)}
         placeholder="Name..."
         autoFocus
         onSubmitEditing={handleSubmit}
       />
-      <View style={styles.actions}>
-        <Pressable
-          style={[styles.button, styles.close]}
-          onPress={toggle}
-        >
-          <Text style={styles.textStyle}>Close</Text>
-        </Pressable>
-        <Pressable
-          style={[styles.button, styles.submit]}
-          onPress={handleSubmit}
-        >
-          <Text style={styles.textStyle}>OK</Text>
-        </Pressable>
-      </View>
+      <ModalFooter
+        onCancel={toggle}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 };
@@ -63,13 +57,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 28,
     color: '#000000',
-  },
-  input: {
-    fontSize: 18,
-    color: '#000000',
-    width: '100%',
-    borderBottomWidth: 1,
-    borderBottomColor: '#000000',
   },
   actions: {
     width: '100%',

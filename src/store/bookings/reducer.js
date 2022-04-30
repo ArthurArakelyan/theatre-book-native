@@ -1,4 +1,4 @@
-import {GET_BOOKINGS, ADD_BOOKING} from "./actionTypes";
+import {GET_BOOKINGS, ADD_BOOKING, SUBMIT_BOOKING} from "./actionTypes";
 
 const initialState = {
   bookings: [],
@@ -16,6 +16,14 @@ const bookingsReducer = (state = initialState, action = {}) => {
     }
     case ADD_BOOKING: {
       return state;
+    }
+    case SUBMIT_BOOKING: {
+      return {
+        ...state,
+        bookings: state.bookings.map((booking) =>
+          booking._id === action.payload ? {...booking, isSubmitted: true} : booking
+        ),
+      };
     }
     default: {
       return state;

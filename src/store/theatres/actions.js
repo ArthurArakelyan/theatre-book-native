@@ -1,4 +1,4 @@
-import {ADD_THEATRE, GET_THEATRES} from "./actionTypes";
+import {ADD_THEATRE, GET_THEATRES, DELETE_THEATRE} from "./actionTypes";
 
 import theatresService from "../../services/theatresService";
 
@@ -30,11 +30,30 @@ const addTheatreAction = (theatre) => {
   };
 };
 
-export const addTheatre = (name: string, image: string) => async (dispatch) => {
+export const addTheatre = (name: string, image: string, date: string) => async (dispatch) => {
   try {
-    const theatre = await theatresService.addTheatre(name, image);
+    const theatre = await theatresService.addTheatre(name, image, date);
     dispatch(addTheatreAction(theatre));
     return theatre;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// delete
+
+const deleteTheatreAction = (id: string) => {
+  return {
+    type: DELETE_THEATRE,
+    payload: id
+  };
+};
+
+export const deleteTheatre = (id: string) => async (dispatch) => {
+  try {
+    const deleted = await theatresService.deleteTheatre(id);
+    dispatch(deleteTheatreAction(id));
+    return deleted;
   } catch (e) {
     console.error(e);
   }

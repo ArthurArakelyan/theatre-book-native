@@ -1,9 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {ScrollView, StyleSheet, Text, View} from "react-native";
-import {ActivityIndicator} from "react-native";
+import {ScrollView, StyleSheet} from "react-native";
 
 import Theatre from "../Theatre";
+import BookingModal from "./BookingModal";
+import PageLoading from "../../../components/PageLoading";
+import PageError from "../../../components/PageError";
+
+import useModal from "../../../hooks/useModal";
 
 import {getTheatres} from "../../../store/theatres/actions";
 
@@ -12,36 +16,39 @@ const Theatres = () => {
 
   const {theatres, loading, error} = useSelector((state) => state.theatres);
 
+  const [isModalOpen, toggleModal] = useModal();
+
+  const [booking, setBooking] = useState(null);
+
   useEffect(() => {
     dispatch(getTheatres());
   }, []);
 
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size={80} color="#6200EE" />
-      </View>
-    );
+  if (loading && !theatres.length) {
+    return <PageLoading />;
   }
 
   if (error) {
-    return (
-      <View style={styles.center}>
-        <Text style={styles.error_message}>Error</Text>
-        <Text style={styles.error_message_button} onPress={() => dispatch(getTheatres())}>
-          Try again
-        </Text>
-      </View>
-    );
+    return <PageError handleClick={() => dispatch(getTheatres())} />;
   }
+
+  const handleBook = (theatre) => {
+    setBooking(theatre);
+    toggleModal();
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.theatres}>
       {theatres?.map((theatre) => {
         return (
-          <Theatre key={theatre._id} theatre={theatre} />
-        )
+          <Theatre key={theatre._id} theatre={theatre} handleBook={handleBook} />
+        );
       })}
+      <BookingModal
+        visible={isModalOpen}
+        toggle={toggleModal}
+        theatre={booking}
+      />
     </ScrollView>
   );
 };
