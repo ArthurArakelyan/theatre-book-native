@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     marginTop: 10,
+    minHeight: 44.4,
   },
   booking_submitted_text: {
     fontSize: 20,
