@@ -145,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModalHOC(AddTheatreModal);
+export default ModalHOC(AddTheatreModal, {width: '80%'});

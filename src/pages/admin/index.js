@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from "react";
+import React, {useState, useMemo, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {ActivityIndicator, StyleSheet, Text, View} from "react-native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
@@ -14,6 +14,7 @@ const Admin = ({navigation}) => {
 
   const {loading: theatresLoading} = useSelector((state) => state.theatres);
   const {loading: bookingsLoading} = useSelector((state) => state.bookings);
+  const isAdmin = useSelector((state) => state.isAdmin);
 
   const loading = useMemo(() => theatresLoading || bookingsLoading, [theatresLoading, bookingsLoading]);
 
@@ -25,6 +26,12 @@ const Admin = ({navigation}) => {
     navigation.push(`admin/${name}`);
     setTab(name);
   };
+
+  useEffect(() => {
+    if (!isAdmin) {
+      navigation.pop();
+    }
+  }, [isAdmin]);
 
   return (
     <View style={styles.admin}>

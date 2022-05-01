@@ -5,12 +5,13 @@ import {Provider as PaperProvider, DefaultTheme} from "react-native-paper";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
-import AppBar from "./components/AppBar";
 import Home from "./pages/home";
 import Admin from "./pages/admin";
 import AddTheatreFAB from "./components/AddTheatreFAB";
 
 import store from "./store/configureStore";
+
+import appNavigatorOptions from "./constatns/appNavigatorOptions";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,15 +23,7 @@ const App = () => {
           <NavigationContainer>
             <Stack.Navigator
               initialRouteName='home'
-              screenOptions={{
-                headerStyle: {
-                  backgroundColor: '#6200EE',
-                },
-                headerTintColor: '#fff',
-                headerTitle: 'Theatre API',
-                headerRight: () => <AppBar />,
-                animation: 'slide_from_right',
-              }}
+              screenOptions={appNavigatorOptions}
             >
               <Stack.Screen name="home" component={Home} />
               <Stack.Screen name="admin" component={Admin} />

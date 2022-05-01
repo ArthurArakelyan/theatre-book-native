@@ -10,6 +10,7 @@ import PageError from "../../../components/PageError";
 import useModal from "../../../hooks/useModal";
 
 import {getTheatres} from "../../../store/theatres/actions";
+import {getMyBookings} from "../../../store/my-bookings/actions";
 
 const Theatres = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Theatres = () => {
 
   useEffect(() => {
     dispatch(getTheatres());
+    dispatch(getMyBookings());
   }, []);
 
   if (loading && !theatres.length) {

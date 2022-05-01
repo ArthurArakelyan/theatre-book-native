@@ -1,4 +1,4 @@
-import {LOGIN, LOGOUT} from "./actionTypes";
+import {LOGIN, LOGOUT, ADD_EMAIL} from "./actionTypes";
 
 const initialState = null;
 
@@ -9,6 +9,12 @@ const userReducer = (state = initialState, action = {}) => {
     }
     case LOGOUT: {
       return null;
+    }
+    case ADD_EMAIL: {
+      return {
+        ...state,
+        email: action.payload,
+      };
     }
     default: {
       return state;

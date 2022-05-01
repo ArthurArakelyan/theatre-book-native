@@ -13,6 +13,31 @@ class BookingsService extends Service {
     }
   }
 
+  async getMyBookings() {
+    try {
+      const user = await super.getUser();
+
+      const response = await request('GET', `bookings/get/${user.id}`);
+
+      super.checkIsSuccess(response);
+
+      return response?.data?.data?.bookings;
+    } catch (e) {
+      super.catchError(e);
+    }
+  }
+
+  async deleteAllBookings() {
+    try {
+      const response = await request('DELETE', 'bookings/delete');
+      super.checkIsSuccess(response);
+
+      return true;
+    } catch (e) {
+      super.catchError(e);
+    }
+  }
+
   async bookTheatre(theatreId: string, email: string) {
     try {
       const user = await super.getUser();

@@ -17,9 +17,6 @@ const Theatre = ({theatre, handleDelete}) => {
       <Text onPress={openImage} style={[styles.theatre_field, styles.theatre_field_url]}>URL: {theatre.image}</Text>
       <Text style={styles.theatre_field}>Date: {theatre.date}</Text>
       <View style={styles.theatre_actions}>
-        {/*<TouchableRipple style={styles.theatre_action} onPress={() => {}}>*/}
-        {/*  <Icon name="edit" size={32} color={primaryColor} />*/}
-        {/*</TouchableRipple>*/}
         <TouchableRipple style={styles.theatre_action} onPress={() => handleDelete(theatre)}>
           <Icon name="delete-forever" size={32} color="red" />
         </TouchableRipple>

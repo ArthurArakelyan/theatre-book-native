@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import {TextInput} from "react-native";
 
 import ModalFooter from "../../../../components/ModalFooter";
@@ -7,10 +8,16 @@ import ModalHOC from "../../../../HOC/ModalHOC";
 
 import bookingsService from "../../../../services/bookingsService";
 
+import {addEmail} from "../../../../store/user/actions";
+
 import global from "../../../../assets/global";
 
 const BookingModal = ({toggle, theatre}) => {
-  const [email, setEmail] = useState('');
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+
+  const [email, setEmail] = useState(user?.email || '');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
@@ -20,11 +27,15 @@ const BookingModal = ({toggle, theatre}) => {
 
     setLoading(true);
 
+    dispatch(addEmail(email));
+
     bookingsService.bookTheatre(theatre._id, email)
-      .finally(() => {
+      .then(() => {
         setEmail('');
-        setLoading(false);
         toggle();
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
