@@ -2,17 +2,22 @@ import {ADD_THEATRE, GET_THEATRES, DELETE_THEATRE} from "./actionTypes";
 
 import theatresService from "../../services/theatresService";
 
+import storage from "../../utils/storage";
 import createAsyncActionHelpers from "../../utils/createAsyncActionHelpers";
 
 // get
 
 const [startGetTheatres, getTheatresSuccess, getTheatresError] = createAsyncActionHelpers(GET_THEATRES);
 
-export const getTheatres = () => async (dispatch) => {
+export const getTheatres = () => async (dispatch, getState) => {
+  const isConnected = getState().connection;
+
   try {
     dispatch(startGetTheatres());
 
-    const theatres = await theatresService.getTheatres();
+    const theatres = isConnected
+      ? await theatresService.getTheatres()
+      : await storage.get('theatres');
 
     dispatch(getTheatresSuccess('theatres', theatres));
     return theatres;

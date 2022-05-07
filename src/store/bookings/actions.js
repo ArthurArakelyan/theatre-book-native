@@ -1,18 +1,23 @@
-import {GET_BOOKINGS, ADD_BOOKING, SUBMIT_BOOKING} from "./actionTypes";
+import {GET_BOOKINGS, SUBMIT_BOOKING} from "./actionTypes";
 
 import bookingsService from "../../services/bookingsService";
 
+import storage from "../../utils/storage";
 import createAsyncActionHelpers from "../../utils/createAsyncActionHelpers";
 
 // get
 
 const [startGetBookings, getBookingsSuccess, getBookingsError] = createAsyncActionHelpers(GET_BOOKINGS);
 
-export const getBookings = () => async (dispatch) => {
+export const getBookings = () => async (dispatch, getState) => {
+  const isConnected = getState().connection;
+
   try {
     dispatch(startGetBookings());
 
-    const bookings = await bookingsService.getBookings();
+    const bookings = isConnected
+      ? await bookingsService.getBookings()
+      : await storage.get('bookings');
 
     dispatch(getBookingsSuccess('bookings', bookings));
     return bookings;

@@ -10,8 +10,9 @@ const AddTheatreFAB = () => {
   const [visible, toggle] = useModal();
 
   const isAdmin = useSelector((state) => state.isAdmin);
+  const isConnected = useSelector((state) => state.connection);
 
-  if (!isAdmin) {
+  if (!isAdmin || !isConnected) {
     return null;
   }
 

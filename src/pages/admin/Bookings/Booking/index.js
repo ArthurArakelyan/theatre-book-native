@@ -1,15 +1,16 @@
 import React, {useState} from "react";
 import {View, StyleSheet, Text, Image} from "react-native";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {TouchableRipple} from "react-native-paper";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 
 import {submitBooking} from "../../../../store/bookings/actions";
 
-import {purple} from "../../../../assets/colors";
+import {purple, purpleDisabled} from "../../../../assets/colors";
 
 const Booking = ({booking}) => {
   const dispatch = useDispatch();
+  const isConnected = useSelector((state) => state.connected);
 
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +43,11 @@ const Booking = ({booking}) => {
           <Text style={styles.booking_submitted_text}>Submitted</Text>
         </View>
         :
-        <TouchableRipple onPress={handleSubmit} style={styles.booking_submit}>
+        <TouchableRipple
+          disabled={!isConnected}
+          onPress={handleSubmit}
+          style={[styles.booking_submit, styles.booking_submit_disabled]}
+        >
           <Text style={styles.booking_submit_text}>Submit</Text>
         </TouchableRipple>
       }
@@ -91,6 +96,9 @@ const styles = StyleSheet.create({
     backgroundColor: purple,
     paddingVertical: 10,
     paddingHorizontal: 15,
+  },
+  booking_submit_disabled: {
+    backgroundColor: purpleDisabled,
   },
   booking_submit_text: {
     color: '#fff',

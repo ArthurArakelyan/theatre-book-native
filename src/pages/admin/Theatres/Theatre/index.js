@@ -1,11 +1,14 @@
 import React from "react";
 import {View, StyleSheet, Text, Linking} from "react-native";
+import {useSelector} from "react-redux";
 import {TouchableRipple} from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import {primaryColor} from "../../../../assets/colors";
 
 const Theatre = ({theatre, handleDelete}) => {
+  const isConnected = useSelector((state) => state.connection);
+
   const openImage = () => {
     Linking.openURL(theatre.image);
   };
@@ -17,8 +20,8 @@ const Theatre = ({theatre, handleDelete}) => {
       <Text onPress={openImage} style={[styles.theatre_field, styles.theatre_field_url]}>URL: {theatre.image}</Text>
       <Text style={styles.theatre_field}>Date: {theatre.date}</Text>
       <View style={styles.theatre_actions}>
-        <TouchableRipple style={styles.theatre_action} onPress={() => handleDelete(theatre)}>
-          <Icon name="delete-forever" size={32} color="red" />
+        <TouchableRipple disabled={!isConnected} style={styles.theatre_action} onPress={() => handleDelete(theatre)}>
+          <Icon name="delete-forever" size={32} color={isConnected ? "red" : "rgba(255,0,0,0.5)"} />
         </TouchableRipple>
       </View>
     </View>

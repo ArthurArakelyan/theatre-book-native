@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/SimpleLineIcons";
 const Theatre = ({theatre, handleBook}) => {
   const user = useSelector((state) => state.user);
   const {bookings} = useSelector((state) => state.myBookings);
+  const isConnected = useSelector((state) => state.connection);
 
   const date = useMemo(() => new Date(theatre.date), [theatre.date]);
 
@@ -26,7 +27,8 @@ const Theatre = ({theatre, handleBook}) => {
           <Text style={styles.theatre_date_divider}> </Text>
           {date.toLocaleTimeString().slice(0, 5)}
         </Text>
-        {(user && !isBooked) && <Button onPress={() => handleBook(theatre)} color="#6200EE" title="Book" />}
+        {(user && !isBooked) &&
+          <Button disabled={!isConnected} onPress={() => handleBook(theatre)} color="#6200EE" title="Book" />}
         {isBooked &&
           <View style={styles.booking_submitted}>
             <Icon name="check" color="green" size={26} />
