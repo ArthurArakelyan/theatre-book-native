@@ -10,7 +10,7 @@ import {purple, purpleDisabled} from "../../../../assets/colors";
 
 const Booking = ({booking}) => {
   const dispatch = useDispatch();
-  const isConnected = useSelector((state) => state.connected);
+  const isConnected = useSelector((state) => state.connection);
 
   const [loading, setLoading] = useState(false);
 
@@ -46,7 +46,7 @@ const Booking = ({booking}) => {
         <TouchableRipple
           disabled={!isConnected}
           onPress={handleSubmit}
-          style={[styles.booking_submit, styles.booking_submit_disabled]}
+          style={[styles.booking_submit, !isConnected && styles.booking_submit_disabled]}
         >
           <Text style={styles.booking_submit_text}>Submit</Text>
         </TouchableRipple>
