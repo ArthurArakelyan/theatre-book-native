@@ -6,10 +6,10 @@ import useAnimation from "../../hooks/useAnimation";
 
 const ModalFooter = ({onCancel, onSubmit, loading = false, submitText = 'Submit', cancelText = 'Cancel'}) => {
   const anim = useAnimation(0, {
-    duration: 500,
+    duration: 200,
     toValue: 1,
-    friction: 6.9,
-  }, 'spring');
+    delay: 300,
+  });
 
   const positionAnim = anim.interpolate({
     inputRange: [0, 1],
