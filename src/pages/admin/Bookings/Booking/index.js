@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import {View, StyleSheet, Text, Image} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import {TouchableRipple} from "react-native-paper";
-import Icon from "react-native-vector-icons/SimpleLineIcons";
+
+import Submitted from "../../../../components/Submitted";
 
 import {submitBooking} from "../../../../store/bookings/actions";
 
@@ -38,10 +39,7 @@ const Booking = ({booking}) => {
         <Text style={styles.booking_theatre_title}>{booking.bookedTheatre.date}</Text>
       </View>
       {booking.isSubmitted ?
-        <View style={styles.booking_submitted}>
-          <Icon name="check" color="green" size={26} />
-          <Text style={styles.booking_submitted_text}>Submitted</Text>
-        </View>
+        <Submitted style={{ marginTop: 10, minHeight: 44.4 }} />
         :
         <TouchableRipple
           disabled={!isConnected}
@@ -103,19 +101,6 @@ const styles = StyleSheet.create({
   booking_submit_text: {
     color: '#fff',
     fontSize: 18,
-  },
-  booking_submitted: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    marginTop: 10,
-    minHeight: 44.4,
-  },
-  booking_submitted_text: {
-    fontSize: 20,
-    color: '#000',
-    marginLeft: 10,
-    fontFamily: 'njnaruto',
   },
 });
 

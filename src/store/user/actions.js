@@ -16,7 +16,7 @@ export const login = () => async (dispatch) => {
     const user = await storage.get('user');
 
     if (!user) {
-      throw new Error('User does not registered');
+      return;
     }
 
     dispatch(loginAction(user));
@@ -58,7 +58,7 @@ export const addEmail = (email: string) => async (dispatch) => {
     const user = await storage.get('user');
 
     if (!user) {
-      throw new Error('User does not registered');
+      throw new Error('User cannot add email because user is not registered');
     }
 
     await storage.set('user', {

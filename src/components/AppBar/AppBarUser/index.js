@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Text, StyleSheet} from "react-native";
+import React, {useEffect} from "react";
+import {StyleSheet, Animated} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector, useDispatch} from "react-redux";
 
@@ -8,6 +8,7 @@ import AdminCheckModal from "../../AdminCheckModal";
 import {checkIsAdmin} from "../../../store/admin/actions";
 
 import useModal from "../../../hooks/useModal";
+import useAnimation from "../../../hooks/useAnimation";
 
 const AppBarUser = ({user}) => {
   const dispatch = useDispatch();
@@ -16,6 +17,11 @@ const AppBarUser = ({user}) => {
   const isAdmin = useSelector((state) => state.isAdmin);
 
   const [visible, toggle] = useModal(false);
+
+  const anim = useAnimation(400, {
+    toValue: 0,
+    duration: 500,
+  });
 
   useEffect(() => {
     dispatch(checkIsAdmin());
@@ -35,9 +41,15 @@ const AppBarUser = ({user}) => {
 
   return (
     <>
-      <Text onLongPress={handleLongPress} style={styles.user}>
+      <Animated.Text
+        onLongPress={handleLongPress}
+        style={{
+          ...styles.user,
+          left: anim,
+        }}
+      >
         {user.name}
-      </Text>
+      </Animated.Text>
       {!isAdmin && <AdminCheckModal
         visible={visible}
         toggle={toggle}

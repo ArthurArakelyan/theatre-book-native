@@ -1,29 +1,66 @@
 import React, {memo} from "react";
-import {View, StyleSheet, ActivityIndicator, Text} from "react-native";
+import {View, StyleSheet, ActivityIndicator, Text, Animated} from "react-native";
 import {TouchableRipple} from "react-native-paper";
 
+import useAnimation from "../../hooks/useAnimation";
+
 const ModalFooter = ({onCancel, onSubmit, loading = false, submitText = 'Submit', cancelText = 'Cancel'}) => {
+  const anim = useAnimation(0, {
+    duration: 500,
+    toValue: 1,
+    friction: 6.9,
+  }, 'spring');
+
+  const positionAnim = anim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-100, 0],
+  });
+
   return (
     <View style={styles.modal_footer}>
-      <TouchableRipple
-        style={[styles.action, styles.action_cancel]}
-        onPress={onCancel}
-      >
-        <Text style={styles.action_text}>
-          {cancelText}
-        </Text>
-      </TouchableRipple>
-      <TouchableRipple
-        style={[styles.action, styles.action_submit, loading && styles.action_loading]}
-        onPress={onSubmit}
-        disabled={loading}
-      >
-        {loading ?
-          <ActivityIndicator color="#ffffff" size="small" />
-          :
-          <Text style={styles.action_text}>{submitText}</Text>
-        }
-      </TouchableRipple>
+      <Animated.View style={{left: positionAnim, opacity: anim}}>
+        <TouchableRipple
+          style={[styles.action, styles.action_cancel]}
+          onPress={onCancel}
+        >
+          <Text style={styles.action_text}>
+            {cancelText}
+          </Text>
+        </TouchableRipple>
+      </Animated.View>
+     <Animated.View style={{right: positionAnim, opacity: anim}}>
+       <TouchableRipple
+         style={[styles.action, styles.action_submit, loading && styles.action_loading]}
+         onPress={onSubmit}
+         disabled={loading}
+       >
+         {loading ?
+           <ActivityIndicator color="#ffffff" size="small" />
+           :
+           <Text style={styles.action_text}>{submitText}</Text>
+         }
+       </TouchableRipple>
+     </Animated.View>
+
+      {/*<TouchableRipple*/}
+      {/*  style={[styles.action, styles.action_cancel]}*/}
+      {/*  onPress={onCancel}*/}
+      {/*>*/}
+      {/*  <Text style={styles.action_text}>*/}
+      {/*    {cancelText}*/}
+      {/*  </Text>*/}
+      {/*</TouchableRipple>*/}
+      {/*<TouchableRipple*/}
+      {/*  style={[styles.action, styles.action_submit, loading && styles.action_loading]}*/}
+      {/*  onPress={onSubmit}*/}
+      {/*  disabled={loading}*/}
+      {/*>*/}
+      {/*  {loading ?*/}
+      {/*    <ActivityIndicator color="#ffffff" size="small" />*/}
+      {/*    :*/}
+      {/*    <Text style={styles.action_text}>{submitText}</Text>*/}
+      {/*  }*/}
+      {/*</TouchableRipple>*/}
     </View>
   );
 };

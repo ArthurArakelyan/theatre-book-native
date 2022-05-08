@@ -1,7 +1,9 @@
 import React, {useMemo} from "react";
 import {useSelector} from "react-redux";
-import {Text, View, StyleSheet, Image, Button} from "react-native";
-import Icon from "react-native-vector-icons/SimpleLineIcons";
+import {Text, View, StyleSheet, Button, Animated} from "react-native";
+
+import Submitted from "../../../components/Submitted";
+import useAnimation from "../../../hooks/useAnimation";
 
 const Theatre = ({theatre, handleBook}) => {
   const user = useSelector((state) => state.user);
@@ -15,12 +17,21 @@ const Theatre = ({theatre, handleBook}) => {
     [bookings]
   );
 
+  const imgAnim = useAnimation(0, {
+    toValue: 1,
+    duration: 500,
+    delay: 300,
+  });
+
   return (
     <View style={styles.theatre}>
       <Text style={styles.theatre_name}>
         {theatre.name}
       </Text>
-      <Image style={styles.theatre_image} source={{uri: theatre.image}} />
+      <Animated.Image
+        style={{...styles.theatre_image, opacity: imgAnim, transform: [{scale: imgAnim}]}}
+        source={{uri: theatre.image}}
+      />
       <View style={styles.theatre_actions}>
         <Text style={styles.theatre_date}>
           {date.toLocaleDateString()}
@@ -29,12 +40,7 @@ const Theatre = ({theatre, handleBook}) => {
         </Text>
         {(user && !isBooked) &&
           <Button disabled={!isConnected} onPress={() => handleBook(theatre)} color="#6200EE" title="Book" />}
-        {isBooked &&
-          <View style={styles.booking_submitted}>
-            <Icon name="check" color="green" size={26} />
-            <Text style={styles.booking_submitted_text}>Submitted</Text>
-          </View>
-        }
+        {isBooked && <Submitted />}
       </View>
     </View>
   );
