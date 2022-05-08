@@ -3,12 +3,12 @@ import {StyleSheet, Animated} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector, useDispatch} from "react-redux";
 
-import AdminCheckModal from "../../AdminCheckModal";
+import AdminCheckModal from "../../../AdminCheckModal";
 
-import {checkIsAdmin} from "../../../store/admin/actions";
+import {checkIsAdmin} from "../../../../store/admin/actions";
 
-import useModal from "../../../hooks/useModal";
-import useAnimation from "../../../hooks/useAnimation";
+import useModal from "../../../../hooks/useModal";
+import useAnimation from "../../../../hooks/useAnimation";
 
 const AppBarUser = ({user}) => {
   const dispatch = useDispatch();

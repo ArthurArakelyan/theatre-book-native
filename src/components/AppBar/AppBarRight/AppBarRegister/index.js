@@ -3,7 +3,7 @@ import {Button, Animated} from "react-native";
 
 import LoginModal from "../LoginModal";
 
-import useAnimation from "../../../hooks/useAnimation";
+import useAnimation from "../../../../hooks/useAnimation";
 
 const AppBarRegister = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

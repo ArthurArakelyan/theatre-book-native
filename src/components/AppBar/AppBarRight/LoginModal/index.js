@@ -2,16 +2,16 @@ import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {StyleSheet, Text, TextInput} from "react-native";
 
-import ModalFooter from "../../ModalFooter";
+import ModalFooter from "../../../ModalFooter";
 
-import ModalHOC from "../../../HOC/ModalHOC";
+import ModalHOC from "../../../../HOC/ModalHOC";
 
-import storage from "../../../utils/storage";
-import generateId from "../../../utils/generateId";
+import storage from "../../../../utils/storage";
+import generateId from "../../../../utils/generateId";
 
-import {login} from "../../../store/user/actions";
+import {login} from "../../../../store/user/actions";
 
-import global from "../../../assets/global";
+import global from "../../../../assets/global";
 
 const LoginModal = ({toggle}) => {
   const dispatch = useDispatch();

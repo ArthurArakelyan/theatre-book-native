@@ -28,39 +28,19 @@ const ModalFooter = ({onCancel, onSubmit, loading = false, submitText = 'Submit'
           </Text>
         </TouchableRipple>
       </Animated.View>
-     <Animated.View style={{right: positionAnim, opacity: anim}}>
-       <TouchableRipple
-         style={[styles.action, styles.action_submit, loading && styles.action_loading]}
-         onPress={onSubmit}
-         disabled={loading}
-       >
-         {loading ?
-           <ActivityIndicator color="#ffffff" size="small" />
-           :
-           <Text style={styles.action_text}>{submitText}</Text>
-         }
-       </TouchableRipple>
-     </Animated.View>
-
-      {/*<TouchableRipple*/}
-      {/*  style={[styles.action, styles.action_cancel]}*/}
-      {/*  onPress={onCancel}*/}
-      {/*>*/}
-      {/*  <Text style={styles.action_text}>*/}
-      {/*    {cancelText}*/}
-      {/*  </Text>*/}
-      {/*</TouchableRipple>*/}
-      {/*<TouchableRipple*/}
-      {/*  style={[styles.action, styles.action_submit, loading && styles.action_loading]}*/}
-      {/*  onPress={onSubmit}*/}
-      {/*  disabled={loading}*/}
-      {/*>*/}
-      {/*  {loading ?*/}
-      {/*    <ActivityIndicator color="#ffffff" size="small" />*/}
-      {/*    :*/}
-      {/*    <Text style={styles.action_text}>{submitText}</Text>*/}
-      {/*  }*/}
-      {/*</TouchableRipple>*/}
+      <Animated.View style={{right: positionAnim, opacity: anim}}>
+        <TouchableRipple
+          style={[styles.action, styles.action_submit, loading && styles.action_loading]}
+          onPress={onSubmit}
+          disabled={loading}
+        >
+          {loading ?
+            <ActivityIndicator color="#ffffff" size="small"/>
+            :
+            <Text style={styles.action_text}>{submitText}</Text>
+          }
+        </TouchableRipple>
+      </Animated.View>
     </View>
   );
 };
