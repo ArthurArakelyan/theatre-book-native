@@ -1,5 +1,5 @@
 import React, {memo} from "react";
-import {Text, Animated, StyleSheet} from "react-native";
+import {Text, View, StyleSheet} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {TouchableRipple} from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -14,7 +14,7 @@ const AppBar = () => {
   const canGoBack = navigation.canGoBack();
 
   return (
-    <Animated.View style={styles.header}>
+    <View style={styles.header}>
       {canGoBack &&
         <TouchableRipple borderless style={styles.goBack} onPress={navigation.goBack}>
           <Icon name="arrow-left" size={22} color="#fff" />
@@ -24,7 +24,7 @@ const AppBar = () => {
       <Text style={[styles.title, canGoBack && styles.title_go_back]}>Theatre API</Text>
 
       <AppBarRight />
-    </Animated.View>
+    </View>
   );
 };
 
