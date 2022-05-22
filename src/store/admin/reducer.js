@@ -5,7 +5,7 @@ const initialState = false;
 const adminReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case CHANGE_IS_ADMIN: {
-      return action.payload;
+      return !!action.payload;
     }
     default: {
       return state;

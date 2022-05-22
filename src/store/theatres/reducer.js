@@ -1,6 +1,6 @@
 import {GET_THEATRES, ADD_THEATRE, DELETE_THEATRE} from "./actionTypes";
 
-const initialState = {
+export const initialState = {
   theatres: [],
   loading: false,
   error: false,

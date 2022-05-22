@@ -1,6 +1,6 @@
 import {GET_BOOKINGS, ADD_BOOKING, SUBMIT_BOOKING} from "./actionTypes";
 
-const initialState = {
+export const initialState = {
   bookings: [],
   loading: false,
   error: false,
@@ -15,7 +15,10 @@ const bookingsReducer = (state = initialState, action = {}) => {
       };
     }
     case ADD_BOOKING: {
-      return state;
+      return {
+        ...state,
+        bookings: [...state.bookings, action.payload],
+      };
     }
     case SUBMIT_BOOKING: {
       return {
