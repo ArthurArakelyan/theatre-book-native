@@ -1,4 +1,4 @@
-const createAsyncActionHelpers = (type: string) => {
+const createAsyncActionHelpers = (type) => {
   return [
     () => ({
       type,
@@ -7,7 +7,7 @@ const createAsyncActionHelpers = (type: string) => {
         error: false,
       }
     }),
-    (resName: string, res: any) => ({
+    (resName, res) => ({
       type,
       payload: {
         [resName]: res,

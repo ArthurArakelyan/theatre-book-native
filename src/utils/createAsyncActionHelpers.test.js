@@ -1,42 +1,53 @@
 import createAsyncActionHelpers from "./createAsyncActionHelpers";
 
-describe("create async action helpers", () => {
-  const helpers = createAsyncActionHelpers("ACTION");
+const action = 'ACTION'
+const helpers = createAsyncActionHelpers(action);
 
-  it("test helpers length", () => {
-    expect(helpers).toHaveLength(3);
+it('should be an array with 3 length', () => {
+  expect(helpers).toHaveLength(3);
+});
+
+it('should be an array of functions', () => {
+  helpers.forEach((helper) => {
+    expect(typeof helper).toBe('function');
   });
+});
 
-  test("async action start helper", () => {
-    expect(helpers[0]()).toEqual({
-      type: "ACTION",
-      payload: {
-        loading: true,
-        error: false,
-      },
-    });
+it('should create a start action', () => {
+  const result = helpers[0]();
+
+  expect(result).toEqual({
+    type: action,
+    payload: {
+      loading: true,
+      error: false,
+    },
   });
+});
 
-  test("async action success helper", () => {
-    const test = [];
+it('should create a success action', () => {
+  const test = [];
 
-    expect(helpers[1]("test", test)).toEqual({
-      type: "ACTION",
-      payload: {
-        test,
-        loading: false,
-        error: false,
-      },
-    });
+  const result = helpers[1]('test', test);
+
+  expect(result).toEqual({
+    type: action,
+    payload: {
+      test,
+      loading: false,
+      error: false,
+    },
   });
+});
 
-  test("async action error helper", () => {
-    expect(helpers[2]()).toEqual({
-      type: "ACTION",
-      payload: {
-        loading: false,
-        error: true,
-      },
-    });
+it('should create an error action', () => {
+  const result = helpers[2]();
+
+  expect(result).toEqual({
+    type: action,
+    payload: {
+      loading: false,
+      error: true,
+    },
   });
 });
